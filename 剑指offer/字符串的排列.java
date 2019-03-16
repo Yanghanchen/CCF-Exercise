@@ -1,33 +1,23 @@
 import java.util.ArrayList;
-import java.util.Collections;
-
 public class Solution {
     public ArrayList<String> Permutation(String str) {
-        ArrayList<String> list=new ArrayList<>();
-        if(str!=null&&str.length()>0){
-            Permutation(str.toCharArray(),0,list);
-            Collections.sort(list);
+        ArrayList<String> result=new ArrayList<>();
+        if(str==null||str.length()==0){
+            return result;
         }
-        return list;
+        doPermutation(str,"",result);
+        return result;
     }
 
-    private void Permutation(char[] cArray, int i, ArrayList<String> list) {
-        if(i==cArray.length-1){
-            String s=new String(cArray);
-            if(!list.contains(s))
-                list.add(s);
+    private void doPermutation(String str, String s,ArrayList<String> result) {
+        if(str.length()==0){
+            if(!result.contains(s))
+                result.add(s);
         }else{
-            for(int j=0;j<cArray.length;j++){
-                swap(cArray,i,j);
-                Permutation(cArray,i+1,list);
-                swap(cArray,i,j);
+            for(int i=0;i<str.length();i++){
+                char c=str.charAt(i);
+                doPermutation(str.replaceFirst(c+"",""),s+c,result);
             }
         }
-    }
-
-    private void swap(char[] cArray, int i, int j) {
-        char t=cArray[i];
-        cArray[i]=cArray[j];
-        cArray[j]=t;
     }
 }
