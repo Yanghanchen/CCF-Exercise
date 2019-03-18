@@ -1,26 +1,22 @@
 import java.util.ArrayList;
-
 public class Solution {
     public ArrayList<Integer> FindNumbersWithSum(int [] array,int sum) {
-        ArrayList<Integer> list=new ArrayList<>();
-        if(array.length==0||sum<=0)
-            return list;
-        int a=0,b=0,multi=Integer.MAX_VALUE,ta=0,tb=0;
-        for(int i=0;i<array.length-1;i++){
-            for(int j=i+1;j<array.length;j++){
-                a=array[i];
-                b=array[j];
-                if(a+b==sum&&a*b<multi){
-                    multi=a*b;
-                    ta=a;
-                    tb=b;
+        ArrayList<Integer> result=new ArrayList<>();
+        if(array!=null&&array.length!=0) {
+            int first = 0, second = array.length - 1;
+            while (first < second) {
+                int value=array[first] + array[second];
+                if (value == sum) {
+                    result.add(array[first]);
+                    result.add(array[second]);
+                    break;
+                }else if (value>sum){
+                    second--;
+                }else{
+                    first++;
                 }
             }
         }
-        if(ta==0&&tb==0)
-            return list;
-        list.add(Math.min(ta,tb));
-        list.add(Math.max(ta,tb));
-        return list;
+        return result;
     }
 }
